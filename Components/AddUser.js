@@ -5,8 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "react-bootstrap";
 import Navbar from "./ui/Navbar";
-import $ from  "jquery"
-
+import $ from "jquery";
 
 function AddUser() {
   const [inputs, setInputs] = useState({
@@ -31,8 +30,8 @@ function AddUser() {
 
     setInputs((values) => ({ ...values, [name]: value }));
 
-    let formErr = validate(inputs)
-    setFormError(formErr)
+    let formErr = validate(inputs);
+    setFormError(formErr);
     // setFormError(validate(inputs));
 
     setInputs({
@@ -60,11 +59,11 @@ function AddUser() {
       if (error.response.status == "500") {
         toast.error("Email already exist");
         setLoading(false);
-        setDisable(false)
+        setDisable(false);
         return;
       }
-      setLoading(false)
-      setDisable(false)
+      setLoading(false);
+      setDisable(false);
     }
   }
   async function getRollname() {
@@ -87,12 +86,11 @@ function AddUser() {
     let formE = validate(inputs);
     setFormError(formE);
     if (Object.keys(formE).length == 0) {
-      setLoading(true)
-      setDisable(true)
+      setLoading(true);
+      setDisable(true);
       addUser();
     }
-
-  };
+  }
 
   const validate = (values) => {
     const errors = {};
@@ -100,24 +98,24 @@ function AddUser() {
     const phoneRegExp =
       /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-    var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    var regularExpression =
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
     const EMAIL_REGEX = new RegExp(
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,6}))$/
     );
 
     if (!values.emailId) {
-      errors.emailId = "Email is required"
+      errors.emailId = "Email is required";
     } else if (!EMAIL_REGEX.test(values.emailId)) {
-      errors.emailId = "Invalid email"
+      errors.emailId = "Invalid email";
     }
     if (!values.name) {
       errors.name = "Name is required";
     } else if (!regex.test(values.name)) {
       errors.name = "Name should be alphabetical";
     } else if (values.name.length < 2 || values.name.length > 20) {
-      errors.name =
-        "Name should be greater than 2 and less than 20 characters";
+      errors.name = "Name should be greater than 2 and less than 20 characters";
     }
 
     if (!values.contactNo) {
@@ -129,8 +127,9 @@ function AddUser() {
     }
     if (!values.password) {
       errors.password = "Password is required";
-    } else if ((!regularExpression.test(values.password))) {
-      errors.password = "Passowrd must contain 8 characters (one uppercase and lowercase letter and number are required).";
+    } else if (!regularExpression.test(values.password)) {
+      errors.password =
+        "Passowrd must contain 8 characters (one uppercase and lowercase letter and number are required).";
     }
 
     if (!values.confirmPassword) {
@@ -147,8 +146,6 @@ function AddUser() {
     return errors;
   };
 
-
-
   async function jQueryFunction() {
     $(".toggle-password").click(function () {
       $(this).toggleClass("fa-solid fa-eye-slash");
@@ -161,25 +158,41 @@ function AddUser() {
     });
   }
 
-
-
-  async function jQueryFunctionOne(){
-    $(".toggle-one-password").click(function(){
+  async function jQueryFunctionOne() {
+    $(".toggle-one-password").click(function () {
       $(this).toggleClass("fa-solid fa-eye-slash");
       var input = $($(this).attr("toggle"));
-      if(input.attr("type") == "password"){
+      if (input.attr("type") == "password") {
         input.attr("type", "text");
-      }else{
-        input.attr("type", "password")
+      } else {
+        input.attr("type", "password");
       }
-    })
+    });
   }
 
   useEffect(() => {
     jQueryFunction();
-    jQueryFunctionOne()
+    jQueryFunctionOne();
   }, []);
 
+  async function jqueryInputFunction() {
+    $("input").focus(function () {
+      $(this).parents(".form-group").addClass("focused");
+    });
+
+    $("input").blur(function () {
+      var inputValue = $(this).val();
+      if (inputValue == "") {
+        $(this).removeClass("filled");
+        $(this).parents(".form-group").removeClass("focused");
+      } else {
+        $(this).addClass("filled");
+      }
+    });
+  }
+  useEffect(() => {
+    jqueryInputFunction();
+  }, []);
 
   return (
     <>
@@ -193,52 +206,67 @@ function AddUser() {
               <h2>Add User</h2>
             </div>
             <div className="client-content">
-              <div className="mb-3 client-row">
+              <div className="mb-3 client-row form-group">
+                <label class="form-label" for="first">
+                  EmailId
+                </label>
                 <input
                   type="email"
                   className="form-control"
                   id="book-input"
-                  placeholder="EmailId"
+                  // placeholder="EmailId"
                   name="emailId"
                   value={inputs.emailId}
                   onChange={handleChange}
                 />
                 <p className={"input-error"}>{formError.emailId}</p>
               </div>
-              <div className="mb-3 client-row">
+              <div className="mb-3 client-row form-group">
+                <label class="form-label" for="first">
+                  Password
+                </label>
+
                 <input
                   type="password"
                   className="form-control only-paasword"
                   id="book-input"
-                  placeholder="Password"
+                  // placeholder="Password"
                   name="password"
                   value={inputs.password}
                   onChange={handleChange}
                 />
-                <span toggle=".only-paasword" className="fa fa-fw fa-eye password-icon toggle-one-password"></span>
+                <span
+                  toggle=".only-paasword"
+                  className="fa fa-fw fa-eye password-icon toggle-one-password"
+                ></span>
                 <p className={"input-error"}>{formError.password}</p>
-
               </div>
-              <div className="mb-3 client-row">
+              <div className="mb-3 client-row form-group">
+              <label class="form-label" for="first">Confirm Password</label>
+
                 <input
                   type="password"
                   className="form-control confirm-password"
                   id="book-input"
-           
-                  placeholder="Confirm Password"
+                  // placeholder="Confirm Password"
                   name="confirmPassword"
                   value={inputs.confirmPassword}
                   onChange={handleChange}
                 />
-                <span toggle=".confirm-password" className="fa fa-fw fa-eye password-icon toggle-password"></span>
+                <span
+                  toggle=".confirm-password"
+                  className="fa fa-fw fa-eye password-icon toggle-password"
+                ></span>
                 <p className={"input-error"}>{formError.confirmPassword}</p>
               </div>
-              <div className="mb-3 client-row">
+              <div className="mb-3 client-row form-group">
+              <label class="form-label" for="first">Name</label>
+
                 <input
                   type="name"
                   className="form-control"
                   id="book-input"
-                  placeholder="Name"
+                  // placeholder="Name"
                   name="name"
                   value={inputs.name}
                   onChange={handleChange}
@@ -266,12 +294,13 @@ function AddUser() {
                 </select>
                 <p className={"input-error"}>{formError.roleId}</p>
               </div>
-              <div className="mb-3 client-row">
+              <div className="mb-3 client-row form-group">
+              <label class="form-label" for="first">Contact No.</label>
                 <input
                   type="number"
                   className="form-control"
                   id="book-input"
-                  placeholder="ContactNo"
+                  // placeholder="ContactNo"
                   name="contactNo"
                   pattern="\d{10}"
                   value={inputs.contactNo}
@@ -285,7 +314,8 @@ function AddUser() {
                   className="form-select w-100"
                   aria-label="Default select example"
                   name="status"
-                  onChange={handleChange} >
+                  onChange={handleChange}
+                >
                   <option value="">Status</option>
                   <option value="1">Active</option>
                   <option value="0">Disable</option>

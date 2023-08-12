@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./ui/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
+import $ from "jquery";
+
 function AddClient() {
   const [formData, setFormData] = useState({
     clientName: "",
@@ -44,26 +46,25 @@ function AddClient() {
     setFormError(formE);
     setIsSubmit(true);
     if (Object.keys(formE).length == 0) {
-      setloading(true)
-      setDisable(true)
+      setloading(true);
+      setDisable(true);
       addClientData(formData);
     }
   };
 
   async function addClientData(formData) {
     try {
-
+      console.log(formData, "formdata send for api");
       const token = localStorage.getItem("token");
       const response = await axios.post("/api/addClient", {
         token: token,
         data: formData,
       });
-
+      console.log(response, "formdata send for getting");
       toast.success("Client added successfully");
       setTimeout(() => {
         router.push("/client");
       }, []);
-
     } catch (error) {
       console.log("Error-->", error);
       setloading(false);
@@ -117,6 +118,44 @@ function AddClient() {
     return errors;
   };
 
+  async function jqueryInputFunction() {
+    $("input").focus(function () {
+      $(this).parents(".form-group").addClass("focused");
+    });
+
+    $("input").blur(function () {
+      var inputValue = $(this).val();
+      if (inputValue == "") {
+        $(this).removeClass("filled");
+        $(this).parents(".form-group").removeClass("focused");
+      } else {
+        $(this).addClass("filled");
+      }
+    });
+  }
+  useEffect(() => {
+    jqueryInputFunction();
+  }, []);
+
+  async function jqueryInputFunctions() {
+    $("textarea").focus(function () {
+      $(this).parents(".form-group").addClass("focused");
+    });
+
+    $("textarea").blur(function () {
+      var inputValue = $(this).val();
+      if (inputValue == "") {
+        $(this).removeClass("filled");
+        $(this).parents(".form-group").removeClass("focused");
+      } else {
+        $(this).addClass("filled");
+      }
+    });
+  }
+  useEffect(() => {
+    jqueryInputFunctions();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -128,24 +167,30 @@ function AddClient() {
           </div>
           <form onSubmit={handleSubmit}>
             <div className="client-content">
-              <div className="mb-3 client-row">
+              <div  className="mb-3 client-row form-group">
+              <label class="form-label" for="first">
+                  Name
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   id="book-input"
-                  placeholder="Name"
+                  // placeholder="Name"
                   name="clientName"
                   value={formData.clientName}
                   onChange={handleChange}
                 />
                 <p className={"input-error"}>{formError.clientName}</p>
               </div>
-              <div className="mb-3 client-row">
+              <div className="mb-3 client-row form-group">
+                <label class="form-label" for="first">
+                  Mobile No.
+                </label>
                 <input
                   type="number"
                   className="form-control"
                   id="book-input"
-                  placeholder="Mobile"
+                  // placeholder="Mobile"
                   name="clientMobileNo"
                   maxLength="10"
                   value={formData.clientMobileNo}
@@ -153,36 +198,45 @@ function AddClient() {
                 />
                 <p className={"input-error"}>{formError.clientMobileNo}</p>
               </div>
-              <div className="mb-3 client-row">
+              <div className="mb-3 client-row form-group">
+                <label class="form-label" for="first">
+                  License Type
+                </label>{" "}
                 <input
                   type="text"
                   className="form-control"
                   id="book-input"
-                  placeholder="License Type"
+                  // placeholder="License Type"
                   name="clientLicenseType"
                   value={formData.clientLicenseType}
                   onChange={handleChange}
                 />
                 <p className={"input-error"}>{formError.clientLicenseType}</p>
               </div>
-              <div className="mb-3 client-row">
+              <div className="mb-3 client-row form-group">
+                <label class="form-label" for="first">
+                  License State
+                </label>{" "}
                 <input
                   type="text"
                   className="form-control"
                   id="book-input"
-                  placeholder="License State"
+                  // placeholder="License State"
                   name="licenseState"
                   value={formData.licenseState}
                   onChange={handleChange}
                 />
                 <p className={"input-error"}>{formError.licenseState}</p>
               </div>
-              <div className="mb-3 client-row">
+              <div className="mb-3 client-row form-group">
+                <label class="form-label" for="first">
+                  Query Status
+                </label>
                 <input
                   type="text"
                   className="form-control"
                   id="book-input"
-                  placeholder="Query Status"
+                  // placeholder="Query Status"
                   name="queryState"
                   value={formData.queryState}
                   onChange={handleChange}
@@ -206,12 +260,15 @@ function AddClient() {
                 </div>
               </div>
 
-              <div className="mb-3 client-textarea">
+              <div className="mb-3 client-textarea form-group">
+                <label className="form-label" for="first">
+                  Feedback
+                </label>
                 <textarea
                   type="text"
                   className="form-control"
                   id="client-text"
-                  placeholder="Feedback"
+                  // placeholder="Feedback"
                   name="feedback"
                   value={formData.feedback}
                   onChange={handleChange}

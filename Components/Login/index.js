@@ -31,7 +31,8 @@ function Login() {
       localStorage.setItem("token", response.data.data.data);
       setLoading(false);
       setTimeout(() => {
-        router.push("/getUsers");
+        localStorage.setItem("activeNo", 2);
+        router.push("/bookingList");
       }, [1000]);
     } catch (error) {
       console.log(error);
@@ -93,7 +94,7 @@ function Login() {
         <div className="container">
           <form onSubmit={submitHandlerFn}>
             <div className="client-head">
-              <h2>LogIn Form</h2>
+              <h2>Log In Form</h2>
             </div>
             <div className="client-content">
               <div className="mb-3 client-row">
@@ -101,7 +102,7 @@ function Login() {
                   type="email"
                   className="form-control"
                   id="book-input"
-                  placeholder="EmailId"
+                  placeholder="Email Id"
                   name="emailId"
                   value={formData.emailId}
                   onChange={handleChange}

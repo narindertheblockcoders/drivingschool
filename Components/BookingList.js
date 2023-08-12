@@ -234,6 +234,7 @@ function BookingList() {
         }
       }
     }
+
     setDatePicker(temp);
   };
 
@@ -360,7 +361,7 @@ function BookingList() {
             <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
               <OwlCarousel
                 className="owl-theme"
-                loop
+                // loop
                 margin={0}
                 autoWidth={100}
                 nav
@@ -379,6 +380,7 @@ function BookingList() {
                 </li>
 
                 {datePicker?.map((item, i) => {
+                  console.log(item, "date item here");
                   return (
                     <li className="nav-item" role="presentation">
                       <button
@@ -422,61 +424,67 @@ function BookingList() {
                                 if (item2?.locationId == item?.id) {
                                   return (
                                     <>
-                                      <div key={idx2} className="head-one-main" id="head-one-main">
-                                      {item2?.locationId === item?.id &&
-                                      item2.isDummyBooking == 1 ? (
-                                        
-                                        <div className="head-one-one">
-                                          <a href="#" className="dummy-btn-one">
-                                            Dummy
-                                          </a>
-                                        </div>
-                                      ) : null}
+                                      <div
+                                        key={idx2}
+                                        className="head-one-main"
+                                        id="head-one-main"
+                                      >
+                                        {item2?.locationId === item?.id &&
+                                        item2.isDummyBooking == 1 ? (
+                                          <div className="head-one-one">
+                                            <a
+                                              href="#"
+                                              className="dummy-btn-one"
+                                            >
+                                              Dummy
+                                            </a>
+                                          </div>
+                                        ) : null}
 
-<div className="head-one-header">
- 
-                                        <div className="head-one-one">
-                                          <h5 className="booking-time">
-                                            {new Date(
-                                              item2.dateOfBooking
-                                            ).toLocaleTimeString("en-IN", {
-                                              hour: "numeric",
-                                              minute: "numeric",
-                                              hour12: true,
-                                            })}
-                                          </h5>
+                                        <div className="head-one-header">
+                                          <div className="head-one-one">
+                                            <h5 className="booking-time">
+                                              {new Date(
+                                                item2.dateOfBooking
+                                              ).toLocaleTimeString("en-IN", {
+                                                hour: "numeric",
+                                                minute: "numeric",
+                                                hour12: true,
+                                              })}
+                                            </h5>
+                                          </div>
+
+                                          <div className="head-one-one">
+                                            <a
+                                              onClick={() =>
+                                                editClientModalFn(item2.id)
+                                              }
+                                            >
+                                              <img
+                                                src="img/Icon feather-edit.svg"
+                                                alt=""
+                                              />
+                                            </a>
+                                            <button
+                                              onClick={() =>
+                                                handleModalFn(item2.id)
+                                              }
+                                              className="head-one-two"
+                                            >
+                                              {/* Swap */}
+                                              Alot
+                                            </button>
+                                            <button
+                                              onClick={() =>
+                                                handleModalShowFn(item2)
+                                              }
+                                              className="head-one-two"
+                                            >
+                                              Add Trainer
+                                            </button>
+                                          </div>
                                         </div>
-                                   
-                                        <div className="head-one-one">
-                                          <a
-                                            onClick={() =>
-                                              editClientModalFn(item2.id)
-                                            }
-                                          >
-                                            <img
-                                              src="img/Icon feather-edit.svg"
-                                              alt=""
-                                            />
-                                          </a>
-                                          <button
-                                            onClick={() =>
-                                              handleModalFn(item2.id)
-                                            }
-                                            className="head-one-two"
-                                          >
-                                            Swap
-                                          </button>
-                                          <button
-                                            onClick={() =>
-                                              handleModalShowFn(item2)
-                                            }
-                                            className="head-one-two"
-                                          >
-                                            Add Trainer
-                                          </button>
-                                        </div>
-                                        </div>
-                                        </div>
+                                      </div>
 
                                       <div className="two-part-head">
                                         <h6 className="vehicle-text">
@@ -488,7 +496,7 @@ function BookingList() {
                                         <span>{item2.bookingRefNo}</span>
                                         <small>Driving License no. </small>
                                         <span>{item2.licenseNo}</span>
-                                        <small>Date Booking </small>
+                                        <small>Booked on </small>
                                         {/* <p>{}</p> */}
                                         <span>
                                           {" "}
@@ -503,9 +511,7 @@ function BookingList() {
                                         </span>
                                         <small>Trainer </small>
                                         <span>{item2.trainerName}</span>
-                                        {item2?.paidAmount <
-                                          item2?.totalAmount &&
-                                        item2.paidAmount > 0 ? (
+                                        {item2?.paidAmount == item2?.totalAmount  ? (
                                           <div className="schedule_client1">
                                             <div className="client-feild-booking">
                                               <small>Client</small>
@@ -533,7 +539,7 @@ function BookingList() {
                                               </button>
                                             </div>
                                           </div>
-                                        ) : (
+                                        ) : ( 
                                           <div
                                             className="schedule_client1"
                                             id="schedule_client1"
@@ -561,9 +567,8 @@ function BookingList() {
                                               </button>
                                             </div>
                                           </div>
-                                        )}
+                                         )} 
                                       </div>
-
                                     </>
                                   );
                                 }

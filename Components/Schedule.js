@@ -440,7 +440,7 @@ function Schedule() {
             <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
               <OwlCarousel
                 className="owl-theme"
-                loop
+                // loop
                 margin={0}
                 width={10}
                 autoWidth={100}

@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Button } from "react-bootstrap";
 import Navbar from "./ui/Navbar";
 import { DatePicker } from "rsuite";
+import $ from "jquery";
 
 function NewBooking() {
   const router = useRouter();
@@ -17,9 +18,9 @@ function NewBooking() {
   const [paymentResult, setPaymentResult] = useState("");
   const [allClient, setAllClient] = useState();
   const [clientId, setClientId] = useState();
+  const [clientName, setClientName] = useState();
   const [bookingRefNo, setBookingRefNo] = useState();
   const [licenseNo, setLicenseNo] = useState();
-  const [clientName, setClientName] = useState();
   const [clientMobileNo, setClientMobileNo] = useState();
   const [locationId, setLocationId] = useState();
   const [vehicleTypeId, setVehicleTypeId] = useState();
@@ -41,6 +42,7 @@ function NewBooking() {
   const [dateofBookingErr, setDateofBookingErr] = useState(false);
   const [dateofPaymentErr, setDateofPaymentErr] = useState(false);
   const [paymentBalErr, setPaymentBalErr] = useState(false);
+  const [dobooinglcs, setDobooinglcs] = useState()
 
   const handleChangeDate = (e) => {
     const options = {
@@ -52,8 +54,12 @@ function NewBooking() {
       year: "numeric",
     };
     const date = new Intl.DateTimeFormat("en-US", options).format(e); // '12/02/2021'
+     localStorage.setItem("dateOfBooking",date)
     setDateofBooking(date);
   };
+
+
+  console.log(dateofBooking,"date of booking here")
 
   const handleChangedofPayment = (e) => {
     const options = {
@@ -110,7 +116,11 @@ function NewBooking() {
       }, [1000]);
     } catch (error) {
       console.log(error);
-      toast.error("Please try again");
+      if (error.response.status == 500) {
+        toast.error("Client Name already exist");
+      } else {
+        toast.error("Please try again");
+      }
       setLoading(false);
       setDisable(false);
     }
@@ -120,6 +130,7 @@ function NewBooking() {
     bookingLocation();
     vehicalBooking();
     getAllClientFn();
+    setDobooinglcs(localStorage.getItem("dateOfBooking"))
   }, []);
 
   async function selectedClient(item) {
@@ -164,110 +175,108 @@ function NewBooking() {
   }, [paidAmount, totalAmount]);
 
   async function formSubmitFn() {
-
-
-    setBookingRefNoErr(false);
-    setLicenseNoErr(false);
-    setClientNameErr(false);
-    setClientMobileNoErr(false);
-    setLocationIdErr(false);
-    setVehicleTypeIdErr(false);
-    setTotalAmountErr(false);
-    setPaidAmountErr(false);
-    setDateofBookingErr(false);
-    setDateofPaymentErr(false);
-    // setPaymentBalErr(false);
-    
-    if (
-      !bookingRefNo &&
-      !licenseNo &&
-      !clientName &&
-      !clientMobileNo &&
-      !locationId &&
-      !vehicleTypeId &&
-      !totalAmount &&
-      !paidAmount &&
-      !dateofBooking &&
-      !dateofPayment 
-      // !paymentBalance
-      ) {
-      console.log("hello from new booking1 ");
-      setBookingRefNoErr(true);
-      setLicenseNoErr(true);
-      setClientNameErr(true);
-      setClientMobileNoErr(true);
-      setLocationIdErr(true);
-      setVehicleTypeIdErr(true);
-      setTotalAmountErr(true);
-      setPaidAmountErr(true);
-      setDateofBookingErr(true);
-      setDateofPaymentErr(true);
-      // setPaymentBalErr(false);
-      return;
-    } else {
-      console.log("hello from new booking3333 ");
+    if (isDummyBooking) {
       setBookingRefNoErr(false);
-      if (!bookingRefNo) {
-        setBookingRefNoErr(true);
-        return;
-      }
       setLicenseNoErr(false);
-      if (!licenseNo) {
-        setLicenseNoErr(true);
-        return;
-      }
       setClientNameErr(false);
-      if (!clientName) {
-        setClientNameErr(true);
-        return;
-      }
-
       setClientMobileNoErr(false);
-      if (!clientMobileNo) {
-        setClientMobileNoErr(true);
-        return;
-      }
-
       setLocationIdErr(false);
-      if (!locationId) {
-        setLocationIdErr(true);
-        return;
-      }
-
       setVehicleTypeIdErr(false);
-      if (!vehicleTypeId) {
-        setVehicleTypeIdErr(true);
-        return;
-      }
-
       setTotalAmountErr(false);
-      if (!totalAmount) {
-        setTotalAmountErr(true);
-        return;
-      }
       setPaidAmountErr(false);
-      if (!paidAmount) {
-        setPaidAmountErr(true);
-        return;
-      }
       setDateofBookingErr(false);
-      if (!dateofBooking) {
-        setDateofBookingErr(true);
-        return;
-      }
       setDateofPaymentErr(false);
-      if (!dateofPayment) {
-        setDateofPaymentErr(true);
-        return;
-      }
       // setPaymentBalErr(false);
-      // if (!paymentBalance) {
-      //   setPaymentBalErr(false);
-      //   return;
-      // }
-    }
+    } else {
+      if (
+        !bookingRefNo &&
+        !licenseNo &&
+        !clientName &&
+        !clientMobileNo &&
+        !locationId &&
+        !vehicleTypeId &&
+        !totalAmount &&
+        !paidAmount &&
+        !dateofBooking &&
+        !dateofPayment
+        // !paymentBalance
+      ) {
+        console.log("hello from new booking1 ");
+        setBookingRefNoErr(true);
+        setLicenseNoErr(true);
+        setClientNameErr(true);
+        setClientMobileNoErr(true);
+        setLocationIdErr(true);
+        setVehicleTypeIdErr(true);
+        setTotalAmountErr(true);
+        setPaidAmountErr(true);
+        setDateofBookingErr(true);
+        setDateofPaymentErr(true);
+        // setPaymentBalErr(false);
+        return;
+      } else {
+        console.log("hello from new booking3333 ");
+        setBookingRefNoErr(false);
+        if (!bookingRefNo) {
+          setBookingRefNoErr(true);
+          return;
+        }
+        setLicenseNoErr(false);
+        if (!licenseNo) {
+          setLicenseNoErr(true);
+          return;
+        }
+        setClientNameErr(false);
+        if (!clientName) {
+          setClientNameErr(true);
+          return;
+        }
 
-  
+        setClientMobileNoErr(false);
+        if (!clientMobileNo) {
+          setClientMobileNoErr(true);
+          return;
+        }
+
+        setLocationIdErr(false);
+        if (!locationId) {
+          setLocationIdErr(true);
+          return;
+        }
+
+        setVehicleTypeIdErr(false);
+        if (!vehicleTypeId) {
+          setVehicleTypeIdErr(true);
+          return;
+        }
+
+        setTotalAmountErr(false);
+        if (!totalAmount) {
+          setTotalAmountErr(true);
+          return;
+        }
+        setPaidAmountErr(false);
+        if (!paidAmount) {
+          setPaidAmountErr(true);
+          return;
+        }
+        setDateofBookingErr(false);
+        if (!dateofBooking) {
+          setDateofBookingErr(true);
+          return;
+        }
+        setDateofPaymentErr(false);
+        if (!dateofPayment) {
+          setDateofPaymentErr(true);
+          return;
+        }
+        // setPaymentBalErr(false);
+        // if (!paymentBalance) {
+        //   setPaymentBalErr(false);
+        //   return;
+        // }
+      }
+    }
 
     const data = {
       clientId: clientId,
@@ -284,7 +293,7 @@ function NewBooking() {
       paymentBalance: paymentBalance,
       isDummyBooking: isDummyBooking,
     };
-    console.log("hello from here1111--->",data)
+    console.log("hello from here1111--->", data);
     if (
       !bookingRefNoErr &&
       !licenseNoErr &&
@@ -299,19 +308,12 @@ function NewBooking() {
       //  &&
       // !paymentBalE rr
     ) {
-      console.log("hello from here--->",data)
-      setLoading(true)
-      setDisable(true)
+      console.log("hello from here--->", data);
+      setLoading(true);
+      setDisable(true);
       newBooking(data);
     }
   }
-
-
-
-
-
-
-
 
   async function bookingRefNoFn() {
     setBookingRefNoErr(false);
@@ -347,6 +349,28 @@ function NewBooking() {
   // async function paymentBalErrFn() {
   //   setPaymentBalErr(false);
   // }
+
+  async function jqueryInputFunction() {
+    $("input").focus(function () {
+      $(this).parents(".form-group").addClass("focused");
+    });
+
+    $("input").blur(function () {
+      var inputValue = $(this).val();
+      if (inputValue == "") {
+        $(this).removeClass("filled");
+        $(this).parents(".form-group").removeClass("focused");
+      } else {
+        $(this).addClass("filled");
+      }
+    });
+  }
+  useEffect(() => {
+    jqueryInputFunction();
+  }, []);
+
+  console.log(dateofBooking, "date of booking here");
+
   return (
     <>
       <ToastContainer />
@@ -371,7 +395,11 @@ function NewBooking() {
           </div>
 
           <div className="booking-content">
-            <div className="mb-3 booking-row">
+            <div className="mb-3 booking-row form-group">
+              <label class="form-label" for="first">
+                Booking Ref No.
+              </label>
+
               <input
                 type="text"
                 className="form-control"
@@ -380,7 +408,7 @@ function NewBooking() {
                 name="bookingRefNo"
                 value={bookingRefNo}
                 onChange={(e) => setBookingRefNo(e.target.value)}
-                placeholder="Booking Ref No."
+                // placeholder="Booking Ref No."
                 maxLength={10}
               />
               {bookingRefNoErr && (
@@ -389,7 +417,11 @@ function NewBooking() {
                 </span>
               )}
             </div>
-            <div className="mb-3 booking-row">
+            <div className="mb-3 booking-row form-group">
+              <label class="form-label" for="first">
+                License No.
+              </label>
+
               <input
                 type="text"
                 className="form-control"
@@ -398,7 +430,7 @@ function NewBooking() {
                 name="licenseNo"
                 value={licenseNo}
                 onChange={(e) => setLicenseNo(e.target.value)}
-                placeholder="License No."
+                // placeholder="License No."
               />
               {licenseNoErr && (
                 <span className="input-error">License number is required</span>
@@ -412,9 +444,9 @@ function NewBooking() {
                 onClick={clientLocationErrFn}
                 onChange={(e) => setLocationId(e.target.value)}
               >
-                <option value="">Select Location</option>
+                <option value="" disabled>--Select Location--</option>
                 {booklocation?.map((item) => {
-                  return <option  value={item.id}>{item.place}</option>;
+                  return <option value={item.id}>{item.place}</option>;
                 })}
               </select>
               {locationIdErr && (
@@ -429,9 +461,9 @@ function NewBooking() {
                 onChange={(e) => setVehicleTypeId(e.target.value)}
                 onClick={vehicleTypeErrFn}
               >
-                <option value="" >Select Vehicle Type</option>
+                <option value="" disabled>--Select Vehicle Type--</option>
                 {vehicleType?.map((item) => {
-                  return <option  value={item.id}>{item.vehicleType}</option>;
+                  return <option value={item.id}>{item.vehicleType}</option>;
                 })}
               </select>
               {vehicleTypeIdErr && (
@@ -440,21 +472,21 @@ function NewBooking() {
             </div>
 
             {/* <div className="mb-3 booking-row">
-              <label for="booking-input">Choose Name:</label>
-              <input     className="form-control"
-                id="book-input" list="New-booking" name="booking-input" placeholder="Name"></input>
-              <datalist id="New-booking">
-                <option value="person1"></option>
-                <option value="person2"></option>
-                {allClient?.map((item) => {
-                  return (
-                    <option value={item?.clientName}>
-                      {item.clientName}
-                    </option>
-                  );
-                })}
-              </datalist>
-            </div> */}
+   <label for="booking-input">Choose Name:</label>
+   <input     className="form-control"
+     id="book-input" list="New-booking" name="booking-input" placeholder="Name"></input>
+   <datalist id="New-booking">
+     <option value="person1"></option>
+     <option value="person2"></option>
+     {allClient?.map((item) => {
+       return (
+         <option value={item?.clientName}>
+           {item.clientName}
+         </option>
+       );
+     })}
+   </datalist>
+ </div> */}
             <div className="mb-3 booking-row" id="add-name-div">
               <select
                 className="form-select select-clientname"
@@ -463,7 +495,9 @@ function NewBooking() {
                 onChange={(e) => selectedClient(e.target.value)}
                 onClick={clientNameErrFn}
               >
-                <option value="">Select Client Name</option>
+                <option value="" disabled selected>
+                  --Select Client Name--
+                </option>
                 {allClient?.map((item) => {
                   return (
                     <option value={`${item?.id}-${item?.clientName}`}>
@@ -472,18 +506,25 @@ function NewBooking() {
                   );
                 })}
               </select>
-              <button type="button" className="add-name-btn" onClick={addClientFn}>
+              <button
+                type="button"
+                className="add-name-btn"
+                onClick={addClientFn}
+                id="new-booking-addBtn"
+              >
                 {" "}
                 +
               </button>
               {/* {clientNameErr && (
-                <span className="input-error">Client name is required</span>
-              )} */}
-
-
+     <span className="input-error">Client name is required</span>
+   )} */}
             </div>
 
-            <div className="mb-3 booking-row">
+            <div className={clientMobileNo? "mb-3 booking-row form-group focused" :"mb-3 booking-row form-group"} >
+              <label class="form-label" for="first">
+                Mobile No.
+              </label>
+
               <input
                 type="number"
                 maxLength={10}
@@ -492,17 +533,21 @@ function NewBooking() {
                 onClick={clientMobileErrFn}
                 name="clientMobileNo"
                 defaultValue={clientMobileNo}
-                placeholder="Mobile"
+                // placeholder="Mobile No."
               />
               {clientMobileNoErr && (
                 <span className="input-error">Mobile number is required</span>
               )}
             </div>
-            <div className="mb-3 booking-row">
-              <div className="field only-date">
+
+            <div className="mb-3 booking-row ">
+              <div className={dateofBooking ?  "field only-date form-group focused" :"field only-date form-group "} >
+                <label class="form-label" for="first">
+                  Date of booking
+                </label>
                 <DatePicker
                   format="yyyy-MM-dd HH:mm:ss"
-                  placeholder="Date of booking"
+                  // placeholder="Date of booking"
                   style={{ width: 260 }}
                   locale={{
                     sunday: "Su",
@@ -523,6 +568,7 @@ function NewBooking() {
                   onChange={(e) => handleChangeDate(e)}
                   onClick={DobErrFn}
                 />
+
                 {dateofBookingErr && (
                   <span className="input-error">
                     Date of booking is required
@@ -530,88 +576,113 @@ function NewBooking() {
                 )}
               </div>
             </div>
-            <div className="mb-3 booking-row">
-              <div className="field only-date">
-                <DatePicker
-                  format="yyyy-MM-dd HH:mm:ss"
-                  placeholder="Date of payment"
-                  style={{ width: 260 }}
-                  locale={{
-                    sunday: "Su",
-                    monday: "Mo",
-                    tuesday: "Tu",
-                    wednesday: "We",
-                    thursday: "Th",
-                    friday: "Fr",
-                    saturday: "Sa",
-                    ok: "OK",
-                    today: "Today",
-                    yesterday: "Yesterday",
-                    hours: "Hours",
-                    minutes: "Minutes",
-                    seconds: "Seconds",
-                  }}
-                  name="dateOfPayment"
-                  onChange={(e) => handleChangedofPayment(e)}
-                  onClick={DopErrFn}
+            {!isDummyBooking ? (
+              <div className="mb-3 booking-row">
+                <div className="field only-date form-group">
+                  <label class="form-label" for="first">
+                    Date of payment
+                  </label>
+
+                  <DatePicker
+                    format="yyyy-MM-dd HH:mm:ss"
+                    placeholder="Date of payment"
+                    style={{ width: 260 }}
+                    locale={{
+                      sunday: "Su",
+                      monday: "Mo",
+                      tuesday: "Tu",
+                      wednesday: "We",
+                      thursday: "Th",
+                      friday: "Fr",
+                      saturday: "Sa",
+                      ok: "OK",
+                      today: "Today",
+                      yesterday: "Yesterday",
+                      hours: "Hours",
+                      minutes: "Minutes",
+                      seconds: "Seconds",
+                    }}
+                    name="dateOfPayment"
+                    onChange={(e) => handleChangedofPayment(e)}
+                    onClick={DopErrFn}
+                  />
+                  {dateofPaymentErr && (
+                    <span className="input-error">
+                      Date of payment is required
+                    </span>
+                  )}
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+            {!isDummyBooking ? (
+              <div className="mb-3 booking-row form-group">
+                <label class="form-label" for="first">
+                  Total Amount
+                </label>
+
+                <input
+                  type="number"
+                  className="form-control"
+                  id="book-input"
+                  name="totalAmount"
+                  value={totalAmount}
+                  onChange={(e) => setTotalAmount(e.target.value)}
+                  min="0"
+                  onClick={totalAmountErrFn}
+                  // placeholder="Total Amount"
                 />
-                {dateofPaymentErr && (
-                  <span className="input-error">
-                    Date of payment is required
-                  </span>
+                {totalAmountErr && (
+                  <span className="input-error">Total amount is required</span>
                 )}
               </div>
-            </div>
-            <div className="mb-3 booking-row">
-              <input
-                type="number"
-                className="form-control"
-                id="book-input"
-                name="totalAmount"
-                value={totalAmount}
-                onChange={(e) => setTotalAmount(e.target.value)}
-                min="0"
-                onClick={totalAmountErrFn}
-                placeholder="Total Amount"
-              />
-              {totalAmountErr && (
-                <span className="input-error">Total amount is required</span>
-              )}
-            </div>
-            <div className="mb-3 booking-row">
-              <input
-                type="number"
-                className="form-control"
-                id="book-input"
-                name="paidAmount"
-                value={paidAmount}
-                onChange={(e) => setPaidAmount(e.target.value)}
-                min="0"
-                onClick={paidAmountErrFn}
-                placeholder="Paid Amount"
-              />
-              {paidAmountErr && (
-                <span className="input-error">Paid amount is required</span>
-              )}
-            </div>
-            <div className="mb-3 booking-row">
-              <input
-                type="number"
-                className="form-control"
-                id="book-input"
-                name="paymentBalance"
-                min="0"
-                defaultValue={paymentBalance}
-                placeholder="Payment Balance"
-                readonly="true"
-                // onClick={paymentBalErrFn}
-              />
-              {/* {paymentBalErr && (
-                <span className="input-error">
-                  Total paid amount is required
-                </span>
-              )} */}
-            </div>
+            ) : (
+              ""
+            )}
+            {!isDummyBooking ? (
+              <div className="mb-3 booking-row form-group">
+                <label class="form-label" for="first">
+                  Paid Amount
+                </label>
+
+                <input
+                  type="number"
+                  className="form-control"
+                  id="book-input"
+                  name="paidAmount"
+                  value={paidAmount}
+                  onChange={(e) => setPaidAmount(e.target.value)}
+                  min="0"
+                  onClick={paidAmountErrFn}
+                  // placeholder="Paid Amount"
+                />
+                {paidAmountErr && (
+                  <span className="input-error">Paid amount is required</span>
+                )}
+              </div>
+            ) : (
+              ""
+            )}
+            {!isDummyBooking ? (
+              <div className="mb-3 booking-row form-group">
+                <label class="form-label" for="first">
+                  Payment Balance
+                </label>
+
+                <input
+                  type="number"
+                  className="form-control"
+                  id="book-input"
+                  name="paymentBalance"
+                  min="0"
+                  defaultValue={paymentBalance}
+                  readonly="true"
+                />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="booking-button">

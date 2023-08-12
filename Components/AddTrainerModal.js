@@ -151,7 +151,7 @@ console.log("hello trainer-->",trainer)
                       name="trainerid"
                       onChange={(e) => setTrainer(e.target.value)}
                     >
-                      {item1.trainerId != null ? item1.trainerName : <option value="">Select Trainer</option>}
+                      {item1.trainerId != null ? item1.trainerName : <option value="" disabled>--Select Trainer--</option>}
                       {/* <option value="">Select Trainer</option> */} 
                       {allTrainer?.map((item, idx) => {
 

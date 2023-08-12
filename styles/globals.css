@@ -8,7 +8,8 @@
     font-family: 'Roboto', sans-serif;
 
 }
-:root{
+
+:root {
     padding: 0 !important;
 }
 
@@ -35,14 +36,14 @@
     padding: 10px;
 }
 
-.component-header{
+.component-header {
     float: left;
     width: 100%;
-    height: 100vh ;
-     display: flex;
-     flex-direction: column;
-     justify-content: space-between;
-     
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
 }
 
 /*--------------------------- navbar ------------------------------*/
@@ -53,13 +54,16 @@
     font-size: 19px;
     font-weight: 500;
 }
+
 .navbar a:active {
-text-decoration: underline;
-    }
+    text-decoration: underline;
+}
+
 .rs-picker-menu {
     z-index: 1200 !important;
 }
-.nav-link:hover{
+
+.nav-link:hover {
     text-decoration: none !important;
 }
 
@@ -185,7 +189,9 @@ form#nav-selects {
     justify-content: center;
     align-items: center;
 }
-
+.toggle-password{
+    font-size: 15px;
+}
 
 
 #login #book-input {
@@ -214,7 +220,7 @@ section#login {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 92vh;
+    height: 90vh;
     padding: 0;
 }
 
@@ -292,10 +298,18 @@ section#login .container {
     display: flex;
     flex-wrap: wrap;
 }
+.booking-row .rs-picker-toggle .rs-picker-toggle-placeholder{
+    display: none !important;
+}
+.booking-row .rs-picker-toggle.rs-btn.rs-btn-default{
+    height: 55px !important;
+}
 
 .booking .booking-content .booking-row {
     width: 23%;
     margin-right: 2%;
+    position: relative;
+    /* margin-bottom: 50px !important; */
 }
 
 #add-name-div {
@@ -307,11 +321,16 @@ section#login .container {
 
 .add-name-btn {
     float: left;
-    padding: 13px 20px;
+    padding: 14px 20px;
     background-color: #0C4B92;
     font-size: 18px;
     color: white;
+    margin-top: -3px;
     border-radius: 5px;
+}
+
+#new-booking-addBtn{
+    margin-top: 1px !important;
 }
 
 #dropdownLogout .dropdown-toggle .dropdown-item {
@@ -648,20 +667,24 @@ section.booking-tabs .main-tabs .nav-item:first-child {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
-.head-one-header{
+
+.head-one-header {
     float: left;
     width: 100%;
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     align-items: center;
 }
-#head-one-main{
+
+#head-one-main {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
 }
+
 .head-one-main .head-one-one h5 {
     font-size: 16px;
     font-weight: 600;
@@ -669,6 +692,7 @@ section.booking-tabs .main-tabs .nav-item:first-child {
     margin: 0;
     white-space: nowrap;
 }
+
 .booking-time {
     text-transform: uppercase;
 }
@@ -797,9 +821,11 @@ section.booking-tabs .main-tabs .nav-item:first-child {
     display: flex;
     flex-direction: column;
 }
-.client-feild-booking strong{
+
+.client-feild-booking strong {
     padding-left: 5px;
 }
+
 .client-feild-booking small {
     font-size: 12px;
     font-weight: 700;
@@ -829,7 +855,8 @@ section.booking-tabs .main-tabs .nav-item:first-child {
     font-weight: normal;
     color: #022853;
 }
-.vehicle-text{
+
+.vehicle-text {
     text-transform: uppercase;
 }
 
@@ -886,7 +913,7 @@ section.booking-tabs .custom-modell {
     flex-direction: column;
 }
 
-#schedule_client1{
+#schedule_client1 {
     background-color: #FFB5B5;
 }
 
@@ -974,7 +1001,7 @@ section.booking-tabs .custom-modell {
     font-size: 15px;
     float: left;
     width: 100%;
-    margin-bottom: 19px;
+    margin-bottom: 50px;
     color: #022853;
     text-align: center;
 }
@@ -990,14 +1017,40 @@ section.booking-tabs .custom-modell {
 .custom-modell .rs-picker-toggle span {
 
     font-size: 1rem !important;
-    font-weight: 400 !important;
+    font-weight: 600 !important;
 }
 
+.custome-btn-div {
+    float: left;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    padding-bottom: 45px;
+}
+
+.custome-btn-div .btn {
+    width: 205px;
+    height: 45px;
+    /* UI Properties */
+    background: #2F55A2 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    border: none !important;
+    outline: none !important; 
+}
+.custome-btn-div .btn:hover {
+    background: #2F55A2 0% 0% no-repeat padding-box;
+}
 .custom-modell .rs-picker-default .rs-picker-toggle.rs-btn {
     padding-top: 10px !important;
     width: 100% !important;
-    padding-bottom: 10px !important;
-    padding: 10px !important;
+    /* padding-bottom: 10px !important; */
+    padding: 15px 10px 15px 15px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border: 1px solid #c4c4c4 !important;
+
+
 }
 
 .custom-modell .rs-picker-date .rs-picker-toggle.rs-btn .rs-picker-toggle-clean,
@@ -1020,6 +1073,7 @@ section.booking-tabs .custom-modell {
     font-weight: 700;
     color: #022853;
     text-align: center;
+    margin-bottom: 3px;
 }
 
 .custom-modell .modal-body {
@@ -1038,7 +1092,7 @@ section.booking-tabs .custom-modell {
 }
 
 .custom-modell .input-main .form-control {
-    padding: 10px;
+    padding: 13px 10px;
     background: #FBFBFB;
     color: #7a7c7c;
     /* width: 50% !important; */
@@ -1047,6 +1101,7 @@ section.booking-tabs .custom-modell {
 .sclient-div {
     float: left;
     width: 100% !important;
+    margin-bottom: 20px !important;
 }
 
 .custom-modell .sclient-box .input-group {
@@ -1062,6 +1117,9 @@ section.booking-tabs .custom-modell {
 
 .custom-modell .modal-body .form-control {
     margin-bottom: 5px !important;
+    padding: 15px 10px 15px 15px;
+    font-size: 16px !important;
+    font-weight: 600 !important;
 }
 
 .custom-modell .modal-body .form-select {
@@ -1075,12 +1133,21 @@ section.booking-tabs .custom-modell {
 }
 
 .custom-modell .input-main .form-select {
-
+    padding: 15px 10px 15px 15px;
     background-color: #fff;
+    border-color: #dee2e6 !important;
+    color: #7a7c7c !important;
+    font-weight: bold;
+    font-size: 16px !important;
 }
 
 .custom-modell .modal-body .form-select:focus {
     box-shadow: unset !important;
+}
+
+.custom-modell .rs-picker-toggle-textbox {
+    padding: 15px 10px 15px 15px !important;
+
 }
 
 .custom-modell .modal-btn-custom {
@@ -1106,9 +1173,9 @@ section.booking-tabs .custom-modell {
     box-shadow: unset !important;
 }
 
-.custom-modell .modal-dialog.modal-dialog-centered {
+/* .custom-modell .modal-dialog.modal-dialog-centered {
     width: 600px !important;
-}
+} */
 
 /* add-schedule */
 #add-new-sche .timeset ul li {
@@ -2084,7 +2151,7 @@ section.trainers .nav-pills .nav-link {
     justify-content: space-between;
     align-items: center;
     height: 58px;
-    white-space: nowrap ;
+    white-space: nowrap;
 }
 
 .trainerhover-btns {
@@ -2143,7 +2210,7 @@ section.trainers .nav-pills .nav-link {
     float: left;
     padding: 100px 0;
     height: 100vh;
-    
+
 }
 
 .client h2 {
@@ -2151,7 +2218,7 @@ section.trainers .nav-pills .nav-link {
     font-size: 28px;
     color: #022853;
     font-weight: bold;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 #client h2 {
@@ -2232,18 +2299,7 @@ section.trainers .nav-pills .nav-link {
     box-shadow: unset !important;
     padding: 15px 10px 15px 15px;
 }
-.client #book-inputs-password {
-    border: 1px solid var(--unnamed-color-c4c4c4);
-    background: #FBFBFB 0% 0% no-repeat padding-box;
-    border: 1px solid #C4C4C4;
-    border-radius: 5px;
-    text-align: left;
-    font-size: 16px;
-    font-weight: 500;
-    color: #74777B;
-    box-shadow: unset !important;
-    padding: 15px 10px 15px 15px;
-}
+
 .client #book-select {
     border: 1px solid var(--unnamed-color-c4c4c4);
 
@@ -3038,7 +3094,8 @@ label {
     height: unset !important;
     width: 300px !important;
 }
-#trainer-timings-width{
+
+#trainer-timings-width {
     width: 300px !important;
 }
 
@@ -3069,18 +3126,85 @@ label {
     text-decoration: none !important
 }
 
+
+
+
+/* Lable animation style */
+
+.form-wrapper {
+    max-width: 30%;
+    min-width: 300px;
+    padding: 50px 30px 50px 30px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(0, 0, 0, .07);
+}
+
+.form-group {
+    position: relative;
+
+    /* & + .form-group {
+      margin-top: 30px;
+    } */
+}
+
+.form-label {
+    position: absolute;
+    left: 13px;
+    top: 13px;
+    color: #999;
+    font-weight: 600;
+    background-color: #fff;
+    z-index: 10;
+    transition: transform 150ms ease-out, font-size 150ms ease-out;
+}
+
+.focused .form-label {
+    transform: translateY(-170%) translateX(-5%);
+    background-color: white !important;
+    font-size: 14px;
+}
+
+.form-input {
+    position: relative;
+    padding: 12px 0px 5px 0;
+    width: 100%;
+    outline: 0;
+    border: 0;
+    box-shadow: 0 1px 0 0 #e5e5e5;
+    transition: box-shadow 150ms ease-out;
+
+    &:focus {
+        box-shadow: 0 2px 0 0 blue;
+    }
+}
+
+.form-input.filled {
+    box-shadow: 0 2px 0 0 lightgreen;
+}
+
+
+
+
+
+
+
+
+
 @media (max-width: 1920px) {
 
-section.footer{
-    margin-top: 20px;
-}
-.Clients {
-    width: 100%;
-    float: left;
-    margin: 30px 0;
-    margin-bottom: 0;
- 
-}
+    section.footer {
+        margin-top: 20px;
+    }
+
+    .Clients {
+        width: 100%;
+        float: left;
+        margin: 30px 0;
+        margin-bottom: 0;
+
+    }
 }
 
 @media (max-width: 1566px) {
@@ -3103,6 +3227,7 @@ section.footer{
     .Clients .client-head .clienthead-lower .input-group {
         width: 20%;
     }
+
     /*------------- client section starts -----------------*/
     .Clients .container-fluid {
         padding: 0 50px;
@@ -3114,10 +3239,11 @@ section.footer{
 
     /*------------- client section ends -----------------*/
 
-    section.booking-tabs .inner-tabs-head .left-tabss h6 span img{
+    section.booking-tabs .inner-tabs-head .left-tabss h6 span img {
         width: 2%;
     }
-    section.booking-tabs .inner-tabs-head .left-tabss h6 small img{
+
+    section.booking-tabs .inner-tabs-head .left-tabss h6 small img {
         width: 2%;
     }
 }
@@ -3235,9 +3361,9 @@ section.footer{
     section.trainers {
         float: left;
         width: 100%;
-        padding:50px 10px !important
-        ;
+        padding: 50px 10px !important;
     }
+
     section.trainers .trainers-flex {
         width: 100%;
         display: flex;
@@ -3249,46 +3375,50 @@ section.footer{
         flex-wrap: nowrap !important;
         text-align: center !important;
     }
-    #traner-tab-flex{
+
+    #traner-tab-flex {
         flex-direction: column;
     }
-    section.trainers .nav-pills .nav-link{
+
+    section.trainers .nav-pills .nav-link {
         float: left;
         width: 34%;
         text-align: center !important
     }
+
     .tabs-head {
         gap: 55px;
     }
+
     .trainer-timings {
         width: 250px !important;
     }
-    .add-first-modal .main-redio{
+
+    .add-first-modal .main-redio {
         flex-direction: column;
     }
-    .trainer-opicty{
+
+    .trainer-opicty {
         opacity: 1;
     }
-    .trainerhover-btns{
+
+    .trainerhover-btns {
         display: flex;
     }
+
     .left-tabss #start {
         border: none !important;
         width: 66%;
     }
+
     nav.navbar .container-fluid {
         padding: 10px;
     }
-    .client-flex-booking{
+
+    .client-flex-booking {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
-    }
-    #login form {
-        width: 100%;
-        background: #f2f8ff;
-        border-radius: 11px;
-        padding: 50px 50px;
     }
 }
 
@@ -3307,6 +3437,7 @@ section.footer{
     #basic-addon2 {
         padding: 8px !important;
     }
+
     .password-icon {
         float: right;
         margin-right: 12px;
@@ -3530,18 +3661,21 @@ section.footer{
     .dummy-btn-one {
         width: 100%;
     }
-    .head-one-header{
+
+    .head-one-header {
         gap: 50px;
     }
 
     /*-------- Schedule Page ends ----------*/
-    .paginate-sec a{
+    .paginate-sec a {
         font-size: 12px;
     }
+
     .pagination_link--active a {
         font-size: 12px !important;
         padding: 3px 10px;
     }
+
     .Clients .client-head .clienthead-lower .input-group {
         width: 72%;
     }

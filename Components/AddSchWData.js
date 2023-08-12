@@ -555,7 +555,7 @@ const AddSchWData = (trainerId) => {
                         onChange={(e) => setLocation(e.target.value)}
                       >
                         {/* <option value={item?.id}>{item?.place}</option> */}
-                        <option value="">Select</option>
+                        <option value="" disabled>--Select--</option>
                         {bookLocation?.map((item) => {
                           return (
                             <option selected={item?.id == location} value={item?.id}> {item?.place}</option>
@@ -586,7 +586,7 @@ const AddSchWData = (trainerId) => {
                             aria-label="Default select example"
                             onChange={(e) => setLocation(e.target.value)}
                           >
-                            <option value="">Select</option>{" "}
+                            <option value="" disabled>--Select--</option>{" "}
                             {bookLocation?.map((item) => {
                               return (
                                 <option selected={item?.id == location} value={item?.id}> {item?.place}</option>
@@ -608,7 +608,7 @@ const AddSchWData = (trainerId) => {
                             aria-label="Default select example"
                             onChange={(e) => setVehicleType(e.target.value)}
                           >
-                            <option value="">Select</option>
+                            <option value="" disabled>--Select--</option>
                             {bookVehicle?.map((item) => {
                               return (
                                 <option selected={item?.id == vehicleType} value={item?.id}> {item?.vehicleType}</option>
@@ -633,7 +633,7 @@ const AddSchWData = (trainerId) => {
                         aria-label="Default select example"
                         onChange={(e) => setVehicleType(e.target.value)}
                       >
-                        <option value="">Select</option>{" "}
+                        <option value="" disabled>--Select--</option>{" "}
                         {bookVehicle?.map((item) => {
                           return (
                             <option selected={item?.id == vehicleType} value={item?.id}> {item?.vehicleType}</option>

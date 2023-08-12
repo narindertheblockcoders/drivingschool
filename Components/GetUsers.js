@@ -126,8 +126,8 @@ function GetUsers() {
               <thead>
                 <tr className="ctable-head">
                   <th scope="col">Id</th>
-                  <th scope="col">Name</th>
                   <th scope="col">EmailId</th>
+                  <th scope="col">Name</th>
                   <th scope="col">RoleName</th>
                   <th scope="col">Phone</th>
                   <th scope="col" className="action-td">Action</th>
@@ -142,11 +142,11 @@ function GetUsers() {
                             <p className="view-paragraph">{index + 1}</p>
                           </td>
                           <td>
-                            <p className="view-paragraph">{item?.name}</p>
-                          </td>
-                          <td>
                             {" "}
                             <p className="view-paragraph">{item?.emailId}</p>
+                          </td>
+                          <td>
+                            <p className="view-paragraph">{item?.name}</p>
                           </td>
                           <td>
                             <p className="view-paragraph">{item?.roleName}</p>
@@ -182,11 +182,11 @@ function GetUsers() {
                             <p className="view-paragraph">{index + 1}</p>
                           </td>
                           <td>
-                            <p className="view-paragraph">{item?.name}</p>
-                          </td>
-                          <td>
                             {" "}
                             <p className="view-paragraph">{item?.emailId}</p>
+                          </td>
+                          <td>
+                            <p className="view-paragraph">{item?.name}</p>
                           </td>
                           <td>
                             <p className="view-paragraph">{item?.roleName}</p>

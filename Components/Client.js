@@ -212,7 +212,7 @@ function Client() {
                             id="vclient-schedule"
                             onClick={() => getFeedback(item.id)}
                           >
-                            View Schedule
+                            View Feedback
                           </button>
                           {/* Modal */}
                         </td>

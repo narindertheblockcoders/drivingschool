@@ -129,7 +129,7 @@ const SwapTrainer = ({ showModal, setShowModal, itemId, getAllSchedule,trainerId
             onBlur={handleBlur}
              
           >
-             <option selected="">Select Trainer</option>
+             <option selected="" disabled>--Select Trainer--</option>
             {allTrainer?.map((item,idx)=>{
               return(
                 <option value={item?.id} selected={item?.id == trainerIdValue ? true : false}>{item.trainerName}</option>
