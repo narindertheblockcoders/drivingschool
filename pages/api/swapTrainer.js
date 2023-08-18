@@ -6,7 +6,7 @@ export default async function handler(req, res) {
       const { token, data } = req.body;
       var config = {
         method: "post",
-        url: "http://134.122.64.108:3005/api/v1/useradmin/changetrainer",
+        url: "http://134.122.64.108:4005/api/v1/useradmin/changetrainer",
         headers: {
           Authorization: `Bearer ${token}`,
         },

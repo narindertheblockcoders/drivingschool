@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
       var config = {
         method: "post",
-        url: "http://134.122.64.108:3005/api/v2/auth/addadmin", 
+        url: "http://134.122.64.108:4005/api/v2/auth/addadmin", 
         data,
       };
       await axios(config).then(function (response) {

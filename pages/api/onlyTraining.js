@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       console.log("data for only training-->",data,token);
       var config = {
         method: "post",
-        url: "http://134.122.64.108:3005/api/v1/useradmin/clienttrainingonly",
+        url: "http://134.122.64.108:4005/api/v1/useradmin/clienttrainingonly",
         headers: {
           Authorization: `Bearer ${token}`,
         },

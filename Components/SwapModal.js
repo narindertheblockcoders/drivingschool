@@ -44,7 +44,7 @@ const SwapModal = ({ show, setShow, swapDataId, schedualDataFn }) => {
   const [totalAmountErr, setTotalAmountErr] = useState(false);
   const [paidAmountErr, setPaidAmountErr] = useState(false);
   const [totalAmount, setTotalAmount] = useState();
-  const [paidAmount, setPaidAmount] = useState(0);
+  const [paidAmount, setPaidAmount] = useState();
   const [paymentBalance, setPaymentBalance] = useState(0);
   const [dateofPaymentErr, setDateofPaymentErr] = useState(false);
   const [dateofPayment, setDateofPayment] = useState();
@@ -66,8 +66,7 @@ const SwapModal = ({ show, setShow, swapDataId, schedualDataFn }) => {
 
   const getSwapData = async (newData) => {
     try {
-
-      console.log(newData,"new data here")
+      console.log(newData, "new data here");
       const token = localStorage.getItem("token");
       const response = await axios.post("/api/swapBooking", {
         token: token,
@@ -82,7 +81,6 @@ const SwapModal = ({ show, setShow, swapDataId, schedualDataFn }) => {
       schedualDataFn();
     } catch (error) {
       console.log("Error:::-->", error);
-      setShow(false);
       toast.error(" Please try again");
     }
   };
@@ -106,7 +104,7 @@ const SwapModal = ({ show, setShow, swapDataId, schedualDataFn }) => {
       setLocationIdErr(true);
     }
 
-    console.log(vehicleTypeId,"vehicle id")
+    console.log(vehicleTypeId, "vehicle id");
     setVehicleTypeIdErr(false);
     if (!vehicleTypeId) {
       setVehicleTypeIdErr(true);
@@ -136,14 +134,14 @@ const SwapModal = ({ show, setShow, swapDataId, schedualDataFn }) => {
       bookingRefNo: bookingRefNo,
       locationId: locationId,
       vehicleTypeId: vehicleTypeId,
-      dateOfBooking: dateInputs || dateValue,
+      newDateOfBooking: dateInputs || dateValue,
       clientId: swapDataId,
-      totalAmount:totalAmount,
-      paidAmount:paidAmount,
-      paymentBalance:paymentBalance,
-      dateofPayment:dateofPayment
-
+      totalAmount: totalAmount,
+      paidAmount: paidAmount,
+      paymentBalance: paymentBalance,
+      dateofPayment: dateofPayment,
     };
+    console.log(newData, "newData");
 
     if (
       !clientNameErr &&
@@ -153,7 +151,6 @@ const SwapModal = ({ show, setShow, swapDataId, schedualDataFn }) => {
       !vehicleTypeIdErr &&
       !dateInputsErr
     ) {
-
       getSwapData(newData);
     }
   }
@@ -204,7 +201,7 @@ const SwapModal = ({ show, setShow, swapDataId, schedualDataFn }) => {
       });
       console.log(response.data.data.data.dateOfBooking, "Booking Date");
       setSwapDataById(response.data.data.data);
-      setClietMobileNoErr(false)
+      setClietMobileNoErr(false);
       setClientName(response?.data?.data?.data?.clientName || null);
       setClietMobileNo(response?.data?.data?.data?.clientMobileNo || null);
       setBookingRefNo(response?.data?.data?.data?.bookingRefNo || null);
@@ -323,13 +320,13 @@ const SwapModal = ({ show, setShow, swapDataId, schedualDataFn }) => {
     setPaidAmountErr(false);
   }
 
-  console.log(clientMobileNo,"clientMobile name")
+  console.log(clientMobileNo, "clientMobile name");
 
   useEffect(() => {
     if (!clientMobileNo) {
       setClietMobileNoErr(true);
     }
-  },[]);
+  }, []);
 
   // For input feild click error hidden End//
 
@@ -472,7 +469,7 @@ const SwapModal = ({ show, setShow, swapDataId, schedualDataFn }) => {
                     Select Location
                   </option>
                   {booklocation?.map((item, idx) => {
-                    console.log(item?.id,"item id ehe")
+                    console.log(item?.id, "item id ehe");
                     return (
                       <option value={item.id} selected={item.id == locationId}>
                         {item.place}

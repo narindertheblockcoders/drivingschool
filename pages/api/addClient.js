@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       console.log(token,data,"token data here")
       var config = {
         method: "post",
-        url: "http://134.122.64.108:3005/api/v1/useradmin/addclientdetail",
+        url: "http://134.122.64.108:4005/api/v1/useradmin/addclientdetail",
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -114,8 +114,9 @@ function NewBooking() {
       setTimeout(() => {
         router.push("/bookingList");
       }, [1000]);
+
     } catch (error) {
-      console.log(error);
+      console.log(error,"New booking error");
       if (error.response.status == 500) {
         toast.error("Client Name already exist");
       } else {
@@ -293,7 +294,7 @@ function NewBooking() {
       paymentBalance: paymentBalance,
       isDummyBooking: isDummyBooking,
     };
-    console.log("hello from here1111--->", data);
+    console.log("hello from here1111--->", vehicleTypeId);
     if (
       !bookingRefNoErr &&
       !licenseNoErr &&
@@ -309,9 +310,9 @@ function NewBooking() {
       // !paymentBalE rr
     ) {
       console.log("hello from here--->", data);
+      newBooking(data);
       setLoading(true);
       setDisable(true);
-      newBooking(data);
     }
   }
 
@@ -444,7 +445,7 @@ function NewBooking() {
                 onClick={clientLocationErrFn}
                 onChange={(e) => setLocationId(e.target.value)}
               >
-                <option value="" disabled>--Select Location--</option>
+                <option value="" selected disabled>--Select Location--</option>
                 {booklocation?.map((item) => {
                   return <option value={item.id}>{item.place}</option>;
                 })}
@@ -461,7 +462,7 @@ function NewBooking() {
                 onChange={(e) => setVehicleTypeId(e.target.value)}
                 onClick={vehicleTypeErrFn}
               >
-                <option value="" disabled>--Select Vehicle Type--</option>
+                <option value="" selected disabled>--Select Vehicle Type--</option>
                 {vehicleType?.map((item) => {
                   return <option value={item.id}>{item.vehicleType}</option>;
                 })}
@@ -665,7 +666,7 @@ function NewBooking() {
               ""
             )}
             {!isDummyBooking ? (
-              <div className="mb-3 booking-row form-group">
+              <div className={paidAmount?"mb-3 booking-row form-group focused" :"mb-3 booking-row form-group "}>
                 <label class="form-label" for="first">
                   Payment Balance
                 </label>

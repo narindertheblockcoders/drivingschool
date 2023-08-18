@@ -42,6 +42,7 @@ function BookingList() {
   const [clientId, setClientId] = useState();
 
   async function schedualDataFn() {
+    console.log("first")
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post("/api/getAllSchedule", {
@@ -53,6 +54,7 @@ function BookingList() {
         (a, b) => a.dummyBooking - b.dummyBooking
       );
       setOpen(false);
+      console.log(responseData,"response data")
       setScheduleData(numAscending);
     } catch (error) {
       console.log("Error:", error);
@@ -169,34 +171,82 @@ function BookingList() {
     setDate3(null);
     const dateObj = new Date(e.target.value);
     const monthStr = dateObj.toLocaleString("default", { month: "short" });
+
+    console.log(monthStr, "mothStr");
+
     const formattedDateStr = `${dateObj.getFullYear()}-${monthStr}`;
     const convertedDate = formattedDateStr.split("-")[1];
 
     const dateObj1 = new Date(e.target.value);
     const year = dateObj1.getFullYear();
+
     setLeapYear(year);
+    console.log(year, "year here");
+    console.log(e.target.value, "value here");
+    // const date2 = new Date(e.target.value).toLocaleDateString();
+    const inputDate = new Date(e.target.value);
 
-    const date2 = new Date(e.target.value).toLocaleDateString();
+    const day = inputDate.getDate();
+    const month = inputDate.getMonth() + 1; // Adding 1 because getMonth() returns 0-11
+    const year1 = inputDate.getFullYear();
+
+    // Pad single-digit day and month with leading zeros
+    const formattedDay = String(day).padStart(2, "0");
+    const formattedMonth = String(month).padStart(2, "0");
+
+    const date2 = `${formattedDay}/${formattedMonth}/${year1}`;
+
+    console.log(date2, "date2 here");
     const d = date2.split("/");
-
+    console.log(d, "date string this");
     setYearMonth(`${d[2]}-${d[1]}`);
 
     dayPicker(convertedDate);
   };
+  console.log(yearMonth, "yearMonth");
+  
+  
 
   const currentDatePicker = () => {
     const dateObj = new Date();
     const monthStr = dateObj.toLocaleString("default", { month: "short" });
+
+    console.log(monthStr, "mothStr");
+
     const formattedDateStr = `${dateObj.getFullYear()}-${monthStr}`;
-    const date2 = new Date().toLocaleDateString();
-    const d = date2.split("/");
     const convertedDate = formattedDateStr.split("-")[1];
+
+    const dateObj1 = new Date();
+    const year = dateObj1.getFullYear();
+
+    setLeapYear(year);
+    console.log(year, "year here");
+    // console.log(e.target.value, "value here");
+    // const date2 = new Date(e.target.value).toLocaleDateString();
+    const inputDate = new Date();
+
+    const day = inputDate.getDate();
+    const month = inputDate.getMonth() + 1; // Adding 1 because getMonth() returns 0-11
+    const year1 = inputDate.getFullYear();
+
+    // Pad single-digit day and month with leading zeros
+    const formattedDay = String(day).padStart(2, "0");
+    const formattedMonth = String(month).padStart(2, "0");
+
+    const date2 = `${formattedDay}/${formattedMonth}/${year1}`;
+
+    console.log(date2, "date2 here");
+    const d = date2.split("/");
+    console.log(d, "date string this");
     setYearMonth(`${d[2]}-${d[1]}`);
-    setDate3(`${d[2]}-${d[1]}`);
+
     dayPicker(convertedDate);
   };
 
+
+
   const dayPicker = (convertedDate) => {
+    console.log(convertedDate,"converedDate in function")
     var temp = [];
     if (
       convertedDate == "Jan" ||
@@ -216,14 +266,14 @@ function BookingList() {
       convertedDate == "Jun" ||
       convertedDate == "Nov" ||
       convertedDate == "Apr" ||
-      convertedDate == "Sep"
+      convertedDate == "Sept"
     ) {
       for (let i = 1; i <= 30; i++) {
         temp.push(`${i} ${convertedDate}`);
       }
     }
-
-    if (convertedDate == "Feb") {
+console.log(temp,"temp function1")
+    if (convertedDate == "Feb" ) {
       if ((leapYear % 4 == 0 && 0 != leapYear % 100) || 0 == leapYear % 400) {
         for (let i = 1; i <= 29; i++) {
           temp.push(`${i} ${convertedDate}`);
@@ -234,6 +284,8 @@ function BookingList() {
         }
       }
     }
+
+    console.log(temp,"temp date function")
 
     setDatePicker(temp);
   };
@@ -249,7 +301,7 @@ function BookingList() {
       const formattedDate = `${day} ${month}`;
       return formattedDate.includes(item);
     });
-    // console.log( "click in here filterValue-->",filterValue);
+    console.log( "click in here filterValue-->",filterValue);
 
     setDataByDate(filterValue);
   }
@@ -275,6 +327,7 @@ function BookingList() {
   }
 
   console.log("first dataByDate--->", dataByDate);
+  console.log("first scheduleData--->",scheduleData)
 
   return (
     <>
@@ -421,6 +474,7 @@ function BookingList() {
                               </div>
 
                               {dataByDate?.map((item2, idx2) => {
+                                console.log(item2,"item list")
                                 if (item2?.locationId == item?.id) {
                                   return (
                                     <>
@@ -497,7 +551,13 @@ function BookingList() {
                                         <small>Driving License no. </small>
                                         <span>{item2.licenseNo}</span>
                                         <small>Booked on </small>
-                                        {/* <p>{}</p> */}
+                                        <p>{new Date(
+                                            item2.newDateOfBooking
+                                          ).toLocaleDateString("en-US", {
+                                            day: "numeric",
+                                            month: "short",
+                                            year: "numeric",
+                                          })}{" "}</p>
                                         <span>
                                           {" "}
                                           {new Date(
@@ -511,7 +571,8 @@ function BookingList() {
                                         </span>
                                         <small>Trainer </small>
                                         <span>{item2.trainerName}</span>
-                                        {item2?.paidAmount == item2?.totalAmount  ? (
+                                        {item2?.paidAmount ==
+                                        item2?.totalAmount ? (
                                           <div className="schedule_client1">
                                             <div className="client-feild-booking">
                                               <small>Client</small>
@@ -539,7 +600,7 @@ function BookingList() {
                                               </button>
                                             </div>
                                           </div>
-                                        ) : ( 
+                                        ) : (
                                           <div
                                             className="schedule_client1"
                                             id="schedule_client1"
@@ -567,7 +628,7 @@ function BookingList() {
                                               </button>
                                             </div>
                                           </div>
-                                         )} 
+                                        )}
                                       </div>
                                     </>
                                   );

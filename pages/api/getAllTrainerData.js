@@ -7,7 +7,7 @@ export default async function handler(req, res) {
       const trainerId = req.body;
       var config = {
         method: "post",
-        url: "http://134.122.64.108:3005/api/v1/useradmin/trainerclientlist",
+        url: "http://134.122.64.108:4005/api/v1/useradmin/trainerclientlist",
         headers: {
           Authorization: `Bearer ${token}`,
         },
