@@ -551,13 +551,17 @@ console.log(temp,"temp function1")
                                         <small>Driving License no. </small>
                                         <span>{item2.licenseNo}</span>
                                         <small>Booked on </small>
-                                        <p>{new Date(
-                                            item2.newDateOfBooking
-                                          ).toLocaleDateString("en-US", {
-                                            day: "numeric",
-                                            month: "short",
-                                            year: "numeric",
-                                          })}{" "}</p>
+                                         {item2.newDateOfBooking?.map((item)=>{
+                                          return(
+
+                                            <p>{new Date(
+                                                item).toLocaleDateString("en-US", {
+                                                  month: "short",
+                                                day: "numeric",
+                                                year: "numeric",
+                                              })}{" "}</p>
+                                          )
+                                         })}
                                         <span>
                                           {" "}
                                           {new Date(
